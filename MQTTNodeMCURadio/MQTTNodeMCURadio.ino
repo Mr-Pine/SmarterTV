@@ -70,13 +70,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(message);
 
 
-  //if (topic == "RadioSend") {
+  if (topic == "RadioSend") {
   long sendCode = atol(message.c_str());
   Serial.println(sendCode);
   irsend.sendNEC(sendCode);
   Serial.println("sending Signal");
-  //}
-
+  }
   Serial.println(message);
 }
 

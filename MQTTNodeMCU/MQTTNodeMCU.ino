@@ -70,12 +70,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(message);
 
 
-  //if (topic == "TVSend") {
+  if (topic == "TVSend") {
   long sendCode = atol(message.c_str());
   Serial.println(sendCode);
   irsend.sendRC5(sendCode);
   Serial.println("sending Signal");
-  //}
+  }
 
   Serial.println(message);
 }
