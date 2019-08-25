@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="loginButtonMargin">104dp</dimen>
+    <dimen name="ControlButtonsSpace">75dp</dimen>
+</resources>

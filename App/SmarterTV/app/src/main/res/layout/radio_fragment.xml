@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_dark">
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        android:id="@+id/powerR"
+        android:background="@drawable/ic_twotone_power_settings_new_24px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="665dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="331dp"
+        android:layout_marginRight="331dp"
+        />
+
+    <EditText
+        android:layout_width="139dp"
+        android:layout_height="45dp"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/numberInputR"
+        app:layout_constraintTop_toTopOf="@+id/powerR"
+        app:layout_constraintBottom_toBottomOf="@+id/powerR"
+        app:layout_constraintStart_toEndOf="@+id/powerR"
+        android:layout_marginStart="40dp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorPrimaryDark"/>
+
+    <Button
+        android:text="Send Number"
+        android:layout_width="77dp"
+        android:layout_height="41dp"
+        android:id="@+id/numberSendR"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/numberInputR"
+        app:layout_constraintTop_toTopOf="@+id/numberInputR"
+        app:layout_constraintStart_toEndOf="@+id/numberInputR"
+        android:layout_marginStart="20dp"/>
+
+    <Button
+        android:id="@+id/muteR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Grey"
+        android:text="Mute"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/timerR"
+        app:layout_constraintEnd_toStartOf="@+id/timerR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timerR" />
+
+    <Button
+        android:id="@+id/timerR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="533dp"
+        android:backgroundTint="@color/Grey"
+        android:text="Timer"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/muteR"
+        app:layout_constraintTop_toBottomOf="@+id/numberInputR" />
+
+    <Button
+        android:id="@+id/okR"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="125dp"
+        android:background="@drawable/ic_ok"
+        android:text="OK"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberInputR" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
