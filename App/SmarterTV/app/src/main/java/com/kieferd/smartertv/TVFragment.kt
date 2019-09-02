@@ -15,8 +15,8 @@ class TVFragment: Fragment() {
 
     lateinit var serverURI: String
 
-    private val buttonIDs = arrayOf("ok", "power", "up", "right", "down", "left", "info", "exit", "mute", "input")
-    private val buttonCodes = arrayOf("0x35", "0xc", "0x16", "0x12", "0x17", "0x13", "0x33", "0x1b", "", "")
+    private val buttonIDs = arrayOf(    "ok",   "power", "up",   "right", "down", "left", "info", "exit", "mute", "input", "red", "green", "yellow", "blue", "at")
+    private val buttonCodes = arrayOf(  "0x35", "0xc",   "0x16", "0x12",  "0x17", "0x13", "0x33", "0x1b", "0xd",  "0x38",  "0x37", "0x36", "0x32", "0x34", "")
 
     private var rcButtons = arrayOfNulls<RCButton>(buttonIDs.size)
 

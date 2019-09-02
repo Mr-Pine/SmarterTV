@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
                     val data = HashMap<String, Any>()
                     data["ip"] = ip.text.toString()
                     data["port"] = port.text.toString()
+                    data["radioAccess"] = "false"
                     firestore.collection("Users").document(user?.uid.toString()).set(data)
                 }else{
                     val error = task.exception
@@ -52,9 +53,11 @@ class LoginActivity : AppCompatActivity() {
                 firestore.collection("Users").document(uid).get().addOnSuccessListener { doc ->
                     val ipAddress = doc["ip"].toString()
                     val portFirestore = doc["port"].toString()
-                    val intent = Intent(this@LoginActivity, Main2Activity::class.java)
+                    val radioAccessVal = doc["radioAccess"].toString()
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     intent.putExtra("id", ipAddress)
                     intent.putExtra("port", portFirestore)
+                    intent.putExtra("radio", radioAccessVal)
                     startActivity(intent)
                 }
             } else {

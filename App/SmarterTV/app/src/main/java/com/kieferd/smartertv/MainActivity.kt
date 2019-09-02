@@ -1,87 +1,69 @@
 package com.kieferd.smartertv
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.view.View
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.WindowManager
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var callIntent: Intent
     private lateinit var ipIntent: String
     private lateinit var portIntent: String
+    private var radioAccessIntent = false
 
-    private lateinit var serverURI: String
-    private lateinit var topic: String
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-    //val buttons = arrayOf(button, power)
-    private val buttonIDs = arrayOf("ok", "power", "up", "right", "down", "left", "info", "exit")
-    private val buttonCodes = arrayOf("0x35", "0xc", "0x16", "0x12", "0x17", "0x13", "0x33", "0x1b")
+        var returnBoolean = false
 
+        when(item.itemId){
+            R.id.nav_tv -> returnBoolean = callTV()
+            R.id.nav_radio -> returnBoolean = callRadio()
+            R.id.nav_settings -> callSettings()
+        }
 
-    private var rcButtons = arrayOfNulls<RCButton>(buttonIDs.size)
+        drawer_layout.closeDrawer(GravityCompat.START)
 
-    private lateinit var mqtt: Mqtt
+        return returnBoolean
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        /*callIntent = this.intent
+        callIntent = this.intent
         portIntent = "${callIntent.extras["port"]}"
         ipIntent = "${callIntent.extras["id"]}"
+        radioAccessIntent = "${callIntent.extras["radio"]}".toBoolean()
 
-        serverURI = "tcp://$ipIntent:$portIntent"
-        topic = "ir"
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-
-
-        mqtt = Mqtt(serverURI, topic, this)
+        System.out.println("Package: $packageName")
 
         if (Build.VERSION.SDK_INT >= 27) {
             this.setShowWhenLocked(true)
         } else {
             @Suppress("DEPRECATION")
             window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-        }*/
-
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)/*
-
-        for (index in 0 until buttonIDs.size) {
-            val id = buttonIDs[index]
-            val buttonObject = findViewById<View>(resources.getIdentifier(id, "id", packageName)) as Button
-            println(buttonObject)
-            val code = buttonCodes[index]
-            val rcButton = RCButton(buttonObject, id, code, this, serverURI)
-            rcButtons[index] = rcButton
         }
-        /*numberInput.setOnEditorActionListener { _, _, _ ->
-            numberInput.hideKeyboard()
-            mqtt.sendNumber(numberInput.text.toString())
-            numberInput.text = SpannableStringBuilder("")
-            true
 
-        }
-        numberSend.setOnClickListener {
-            numberInput.hideKeyboard()
-            mqtt.sendNumber(numberInput.text.toString())
-            numberInput.text = SpannableStringBuilder("")
-        }*/
+        setSupportActionBar(toolbar)
 
-        setNotification()*/
+        val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
 
+        callTV()
+
+        val navigationView = nav_view
+        navigationView.setNavigationItemSelectedListener(this)
     }
 
     override fun onBackPressed() {
@@ -89,34 +71,49 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun toast(text: String, dur: Int) {
-        Toast.makeText(this, text, dur).show()
-    }
-
-    /*fun toastAndPrint(text: String, dur: Int) {
-        Toast.makeText(this, text, dur).show()
-        println(text)
-    }*/
-
-    private fun EditText.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-
-    private fun setNotification() {
-        if (Build.VERSION.SDK_INT >= 26){
-
-            val name = getString(R.string.channel_name)
-            val descriptionText = getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("test", name, importance).apply {
-                description = descriptionText
-            }
-
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-
+        if(drawer_layout.isDrawerOpen(GravityCompat.START)){
+            drawer_layout.closeDrawer(GravityCompat.START)
+        }else {
+            Toast.makeText(this, text, dur).show()
         }
     }
+
+    private fun callTV(): Boolean{
+        val fragment = TVFragment()
+        val args = Bundle()
+        args.putString("ip", ipIntent)
+        args.putInt("port", portIntent.toInt())
+        fragment.arguments = args
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+
+        return true
+    }
+
+    private fun callRadio(): Boolean {
+        var access = false
+
+        if(radioAccessIntent){
+        val fragment = RadioFragment()
+        val args = Bundle()
+        args.putString("ip", ipIntent)
+        args.putInt("port", portIntent.toInt())
+        fragment.arguments = args
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+
+        access = true
+        }else{
+            access = false
+            Toast.makeText(this, "No permission", Toast.LENGTH_LONG).show()
+        }
+
+        return access
+    }
+
+    private fun callSettings(){
+        val fragment = SettingsFragment()
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+    }
 }
-
-

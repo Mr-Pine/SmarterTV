@@ -1,144 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        android:background="@color/dark">
+        android:orientation="vertical">
 
-    <!--Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="100dp"
-            android:id="@+id/power"
-            android:background="@drawable/ic_twotone_power_settings_new_24px"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="665dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="331dp"
-            android:layout_marginRight="331dp"
-            />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <Button
-            android:rotation="45"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/down"
-            android:background="@drawable/ic_contols"
-            android:layout_marginTop="@dimen/ControlButtonsSpace"
-            app:layout_constraintTop_toTopOf="@+id/ok"
-            app:layout_constraintEnd_toEndOf="@+id/ok"
-            app:layout_constraintStart_toStartOf="@+id/ok"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container"/>
 
-    <Button
-            android:rotation="135"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/left"
-            android:background="@drawable/ic_contols"
-            app:layout_constraintEnd_toEndOf="@+id/ok"
-            android:layout_marginEnd="75dp"
-            android:layout_marginRight="@dimen/ControlButtonsSpace"
-            app:layout_constraintBottom_toBottomOf="@+id/ok"
-            app:layout_constraintTop_toTopOf="@+id/ok"/>
+    </LinearLayout>
+    
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"/>
 
-    <Button
-            android:rotation="225"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/up"
-            android:background="@drawable/ic_contols"
-            app:layout_constraintEnd_toEndOf="@+id/ok"
-            app:layout_constraintStart_toStartOf="@+id/ok"
-            android:layout_marginBottom="@dimen/ControlButtonsSpace"
-            app:layout_constraintBottom_toBottomOf="@+id/ok"
-            />
-
-    <Button
-            android:rotation="-45"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/right"
-            android:background="@drawable/ic_contols"
-            app:layout_constraintTop_toTopOf="@+id/ok"
-            app:layout_constraintBottom_toBottomOf="@+id/ok"
-            app:layout_constraintStart_toStartOf="@+id/ok"
-            android:layout_marginStart="76dp"
-            app:layout_constraintVertical_bias="0.0"/>
-
-    <Button
-            android:rotation="-45"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/ok"
-            android:background="@drawable/ic_okexport"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp"/>
-
-    <EditText
-            android:layout_width="139dp"
-            android:layout_height="45dp"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/numberInput"
-            app:layout_constraintTop_toTopOf="@+id/power"
-            app:layout_constraintBottom_toBottomOf="@+id/power"
-            app:layout_constraintStart_toEndOf="@+id/power"
-            android:layout_marginStart="40dp"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/colorPrimaryDark"/>
-
-    <Button
-            android:text="Send Number"
-            android:layout_width="77dp"
-            android:layout_height="41dp"
-            android:id="@+id/numberSend"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="@+id/numberInput"
-            app:layout_constraintTop_toTopOf="@+id/numberInput"
-            app:layout_constraintStart_toEndOf="@+id/numberInput"
-            android:layout_marginStart="20dp"/>
-
-    <Button
-            android:text="info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/info"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/numberInput"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/up"
-            android:textColor="#FFFFFF"
-            app:layout_constraintEnd_toStartOf="@+id/exit"
-            android:backgroundTint="@color/Grey"/>
-
-    <Button
-            android:text="Exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/exit"
-            app:layout_constraintTop_toTopOf="@+id/info"
-            app:layout_constraintBottom_toBottomOf="@+id/info"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toEndOf="@+id/info"
-            app:layout_constraintVertical_bias="0.0"
-            android:backgroundTint="@color/Grey"
-            android:textColor="#FFFFFF"/-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
