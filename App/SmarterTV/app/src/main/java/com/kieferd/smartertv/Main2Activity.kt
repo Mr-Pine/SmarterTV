@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main2.*
+import com.kieferd.smartertv.databinding.ActivityMain2Binding
 
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -18,6 +18,7 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     private lateinit var callIntent: Intent
     private lateinit var ipIntent: String
     private lateinit var portIntent: String
+    private lateinit var binding: ActivityMain2Binding
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
@@ -27,7 +28,7 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             R.id.nav_settings -> callSettings()
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
 
         return true
     }
@@ -35,13 +36,15 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
 
         callIntent = this.intent
-        portIntent = "${callIntent.extras["port"]}"
-        ipIntent = "${callIntent.extras["id"]}"
+        portIntent = "${callIntent.extras?.get("port")}"
+        ipIntent = "${callIntent.extras?.get("id")}"
+
+        binding = ActivityMain2Binding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(binding.root)
 
-        System.out.println("Package: $packageName")
+        println("Package: $packageName")
 
         if (Build.VERSION.SDK_INT >= 27) {
             this.setShowWhenLocked(true)
@@ -50,15 +53,15 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         }
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
 
-        val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
+        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         callTV()
 
-        val navigationView = nav_view
+        val navigationView = binding.navView
         navigationView.setNavigationItemSelectedListener(this)
     }
 
@@ -67,8 +70,8 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     private fun toast(text: String, dur: Int) {
-        if(drawer_layout.isDrawerOpen(GravityCompat.START)){
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         }else {
             Toast.makeText(this, text, dur).show()
         }

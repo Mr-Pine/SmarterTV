@@ -1,30 +1,37 @@
 package com.kieferd.smartertv
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_login.*
+import com.kieferd.smartertv.databinding.ActivityLoginBinding
 
 
 class LoginActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        register.setOnClickListener {
-            auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener { task ->
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+
+        setContentView(view)
+
+
+        binding.register.setOnClickListener {
+            auth.createUserWithEmailAndPassword(binding.email.text.toString(), binding.password.text.toString()).addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     println("Registration Successful")
                     val user = auth.currentUser
                     val data = HashMap<String, Any>()
-                    data["ip"] = ip.text.toString()
-                    data["port"] = port.text.toString()
+                    data["ip"] = binding.ip.text.toString()
+                    data["port"] = binding.port.text.toString()
                     firestore.collection("Users").document(user?.uid.toString()).set(data)
                 }else{
                     val error = task.exception
@@ -33,8 +40,8 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        logIn.setOnClickListener{
-            auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener { task ->
+        binding.logIn.setOnClickListener{
+            auth.signInWithEmailAndPassword(binding.email.text.toString(), binding.password.text.toString()).addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     println("Login successful")
                 }else{

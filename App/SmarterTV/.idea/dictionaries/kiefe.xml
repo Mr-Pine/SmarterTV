@@ -2,6 +2,9 @@
   <dictionary name="kiefe">
     <words>
       <w>firestore</w>
+      <w>kieferd</w>
+      <w>mqtt</w>
+      <w>smartertv</w>
     </words>
   </dictionary>
 </component>

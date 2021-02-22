@@ -1,5 +1,6 @@
 package com.kieferd.smartertv
 
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -14,7 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.kieferd.smartertv.databinding.ActivityMainBinding
 
 
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -35,8 +36,9 @@ class MainActivity : AppCompatActivity() {
     private var rcButtons = arrayOfNulls<RCButton>(buttonIDs.size)
 
     private lateinit var mqtt: Mqtt
+    private lateinit var binding: ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+            override fun onCreate(savedInstanceState: Bundle?) {
 
         /*callIntent = this.intent
         portIntent = "${callIntent.extras["port"]}"
@@ -56,8 +58,10 @@ class MainActivity : AppCompatActivity() {
             window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         }*/
 
+
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)/*
+        setContentView(binding.root)/*
 
         for (index in 0 until buttonIDs.size) {
             val id = buttonIDs[index]

@@ -23,12 +23,12 @@ class RadioFragment: Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var v = inflater.inflate(R.layout.radio_fragment, container, false)
+        val v = inflater.inflate(R.layout.radio_fragment, container, false)
         val numberInput: EditText = v.findViewById(R.id.numberInputR)
         val numberSend: Button = v.findViewById(R.id.numberSendR)
 
         if(arguments != null){
-            serverURI = "tcp://${arguments!!["ip"]}:${arguments!!["port"]}"
+            serverURI = "tcp://${requireArguments()["ip"]}:${requireArguments()["port"]}"
         }
 
         val mqtt = Mqtt(serverURI, "TV", context as Context)
