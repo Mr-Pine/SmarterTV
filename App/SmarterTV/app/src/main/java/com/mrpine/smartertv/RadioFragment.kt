@@ -34,7 +34,7 @@ class RadioFragment: Fragment() {
 
         for (index in buttonIDs.indices) {
             val id = buttonIDs[index]
-            val buttonObject: Button = v.findViewById(resources.getIdentifier(id, "id", "com.kieferd.smartertv"))
+            val buttonObject: Button = v.findViewById(resources.getIdentifier(id, "id", "com.mrpine.smartertv"))
             println(buttonObject)
             val code = buttonCodes[index]
             val rcButton = RCButton(buttonObject, id, code, context as Context, serverURI, "Radio")

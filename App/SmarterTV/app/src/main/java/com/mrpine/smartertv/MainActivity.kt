@@ -33,55 +33,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mqtt: Mqtt
     private lateinit var binding: ActivityMainBinding
 
-            override fun onCreate(savedInstanceState: Bundle?) {
-
-        /*callIntent = this.intent
-        portIntent = "${callIntent.extras["port"]}"
-        ipIntent = "${callIntent.extras["id"]}"
-
-        serverURI = "tcp://$ipIntent:$portIntent"
-        topic = "ir"
-
-
-
-        mqtt = Mqtt(serverURI, topic, this)
-
-        if (Build.VERSION.SDK_INT >= 27) {
-            this.setShowWhenLocked(true)
-        } else {
-            @Suppress("DEPRECATION")
-            window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-        }*/
-
-
+    override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)/*
-
-        for (index in 0 until buttonIDs.size) {
-            val id = buttonIDs[index]
-            val buttonObject = findViewById<View>(resources.getIdentifier(id, "id", packageName)) as Button
-            println(buttonObject)
-            val code = buttonCodes[index]
-            val rcButton = RCButton(buttonObject, id, code, this, serverURI)
-            rcButtons[index] = rcButton
-        }
-        /*numberInput.setOnEditorActionListener { _, _, _ ->
-            numberInput.hideKeyboard()
-            mqtt.sendNumber(numberInput.text.toString())
-            numberInput.text = SpannableStringBuilder("")
-            true
-
-        }
-        numberSend.setOnClickListener {
-            numberInput.hideKeyboard()
-            mqtt.sendNumber(numberInput.text.toString())
-            numberInput.text = SpannableStringBuilder("")
-        }*/
-
-        setNotification()*/
+        setContentView(binding.root)
 
     }
+
 
     override fun onBackPressed() {
         toast("Exit with home button", Toast.LENGTH_LONG)
@@ -102,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setNotification() {
-        if (Build.VERSION.SDK_INT >= 26){
+        if (Build.VERSION.SDK_INT >= 26) {
 
             val name = getString(R.string.channel_name)
             val descriptionText = getString(R.string.channel_description)
@@ -111,7 +69,8 @@ class MainActivity : AppCompatActivity() {
                 description = descriptionText
             }
 
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
 
         }

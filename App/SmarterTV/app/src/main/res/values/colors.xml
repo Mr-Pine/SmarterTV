@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#00BFBF</color>
     <color name="colorPrimaryLight">#60f2f2</color>
-    <color name="colorPrimaryDark">#008E8F</color>
+    <color name="colorPrimaryDark">#1A4449</color>
     <color name="secondaryColor">#0080BF</color>
     <color name="secondaryLightColor">#59aff2</color>
     <color name="secondaryDarkColor">#00548E</color>
@@ -11,4 +11,6 @@
     <color name="colorAccent">#FF9800</color>
     <color name="dark">#121212</color>
     <color name="Grey">#4D4D4D</color>
+    <color name="remote_background">#10141B</color>
+    <color name="button_background">#143539</color>
 </resources>

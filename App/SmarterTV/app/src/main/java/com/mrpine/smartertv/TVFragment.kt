@@ -3,6 +3,7 @@ package com.mrpine.smartertv
 import android.content.Context
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +13,15 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.mrpine.smartertv.databinding.TvFragmentBinding
 
-class TVFragment: Fragment() {
+class TVFragment : Fragment() {
 
     private lateinit var serverURI: String
+    private lateinit var mqtt: Mqtt
 
-    private val buttonIDs = arrayOf("ok", "power", "up", "right", "down", "left", "info", "exit", "mute", "input")
-    private val buttonCodes = arrayOf("0x35", "0xc", "0x16", "0x12", "0x17", "0x13", "0x33", "0x1b", "", "")
+    private val buttonIDs =
+        arrayOf("ok", "power", "up", "right", "down", "left", "info", "exit", "mute", "input")
+    private val buttonCodes =
+        arrayOf("0x35", "0xc", "0x16", "0x12", "0x17", "0x13", "0x33", "0x1b", "", "")
     private val buttonMap = mapOf(
         "ok" to "0x35",
         "power" to "0xc",
@@ -38,11 +42,16 @@ class TVFragment: Fragment() {
     private var rcButtons = mutableMapOf<String, RCButton>()//arrayOfNulls<RCButton>(buttonIDs.size)
 
     private var _binding: TvFragmentBinding? = null
+
     // This property is only valid between onCreateView and
 // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = TvFragmentBinding.inflate(inflater)
 
         val view = binding.root
@@ -51,16 +60,29 @@ class TVFragment: Fragment() {
 
 
 
-        if(arguments != null){
+        if (arguments != null) {
             serverURI = "tcp://${requireArguments()["ip"]}:${requireArguments()["port"]}"
         }
 
-        val mqtt = Mqtt(serverURI, "TV", context as Context)
+        mqtt = Mqtt(serverURI, "TV", context as Context)
 
         for (buttonElement in buttonMap) {
-            val buttonObject: Button = view.findViewById(resources.getIdentifier(buttonElement.key, "id", "com.mrpine.smartertv"))
+            val buttonObject: Button = view.findViewById(
+                resources.getIdentifier(
+                    buttonElement.key,
+                    "id",
+                    "com.mrpine.smartertv"
+                )
+            )
             println(buttonObject)
-            val rcButton = RCButton(buttonObject, buttonElement.key, buttonElement.value, context as Context, serverURI, "TV")
+            val rcButton = RCButton(
+                buttonObject,
+                buttonElement.key,
+                buttonElement.value,
+                context as Context,
+                serverURI,
+                "TV"
+            )
             rcButtons[buttonElement.key] = rcButton
         }
 
@@ -80,6 +102,14 @@ class TVFragment: Fragment() {
 
 
         return view
+    }
+
+    public fun onVolume(keyCode: Int) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            mqtt.publishMessage("0x10")
+        } else {
+            mqtt.publishMessage("0x11")
+        }
     }
 
     private fun EditText.hideKeyboard() {
