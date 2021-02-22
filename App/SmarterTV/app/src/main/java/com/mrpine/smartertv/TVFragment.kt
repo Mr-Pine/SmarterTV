@@ -18,8 +18,24 @@ class TVFragment: Fragment() {
 
     private val buttonIDs = arrayOf("ok", "power", "up", "right", "down", "left", "info", "exit", "mute", "input")
     private val buttonCodes = arrayOf("0x35", "0xc", "0x16", "0x12", "0x17", "0x13", "0x33", "0x1b", "", "")
+    private val buttonMap = mapOf(
+        "ok" to "0x35",
+        "power" to "0xc",
+        "up" to "0x16",
+        "right" to "0x12",
+        "down" to "0x17",
+        "left" to "0x13",
+        "info" to "0x33",
+        "exit" to "0x1b",
+        "mute" to "0xd",
+        "input" to "0x38",
+        "red" to "0x37",
+        "green" to "0x36",
+        "yellow" to "0x32",
+        "blue" to "0x34"
+    )
 
-    private var rcButtons = arrayOfNulls<RCButton>(buttonIDs.size)
+    private var rcButtons = mutableMapOf<String, RCButton>()//arrayOfNulls<RCButton>(buttonIDs.size)
 
     private var _binding: TvFragmentBinding? = null
     // This property is only valid between onCreateView and
@@ -41,13 +57,11 @@ class TVFragment: Fragment() {
 
         val mqtt = Mqtt(serverURI, "TV", context as Context)
 
-        for (index in buttonIDs.indices) {
-            val id = buttonIDs[index]
-            val buttonObject: Button = view.findViewById(resources.getIdentifier(id, "id", "com.mrpine.smartertv"))
+        for (buttonElement in buttonMap) {
+            val buttonObject: Button = view.findViewById(resources.getIdentifier(buttonElement.key, "id", "com.mrpine.smartertv"))
             println(buttonObject)
-            val code = buttonCodes[index]
-            val rcButton = RCButton(buttonObject, id, code, context as Context, serverURI, "TV")
-            rcButtons[index] = rcButton
+            val rcButton = RCButton(buttonObject, buttonElement.key, buttonElement.value, context as Context, serverURI, "TV")
+            rcButtons[buttonElement.key] = rcButton
         }
 
         numberInput.setOnEditorActionListener { _, _, _ ->
