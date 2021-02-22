@@ -1,4 +1,4 @@
-package com.kieferd.smartertv
+package com.mrpine.smartertv
 
 import android.content.Intent
 import android.os.Build
@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
-import com.kieferd.smartertv.databinding.ActivityMain2Binding
+import com.mrpine.smartertv.databinding.ActivityMain2Binding
 
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

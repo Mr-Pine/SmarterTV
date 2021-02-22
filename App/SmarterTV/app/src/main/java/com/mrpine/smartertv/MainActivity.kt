@@ -1,21 +1,16 @@
-package com.kieferd.smartertv
+package com.mrpine.smartertv
 
-import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.kieferd.smartertv.databinding.ActivityMainBinding
+import com.mrpine.smartertv.databinding.ActivityMainBinding
 
 
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")

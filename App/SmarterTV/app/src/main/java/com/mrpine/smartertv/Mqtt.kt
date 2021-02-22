@@ -1,4 +1,4 @@
-package com.kieferd.smartertv
+package com.mrpine.smartertv
 
 import android.content.Context
 import android.widget.Toast

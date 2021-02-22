@@ -112,18 +112,18 @@
         android:layout_marginStart="20dp"/>
 
     <Button
-        android:text="info"
+        android:id="@+id/info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/info"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/numberInput"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/up"
+        android:backgroundTint="@color/Grey"
+        android:text="info"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/up"
         app:layout_constraintEnd_toStartOf="@+id/exit"
-        android:backgroundTint="@color/Grey"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberInput" />
 
     <Button
         android:text="Exit"

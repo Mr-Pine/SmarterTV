@@ -1,12 +1,11 @@
-package com.kieferd.smartertv
+package com.mrpine.smartertv
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.kieferd.smartertv.databinding.ActivityLoginBinding
+import com.mrpine.smartertv.databinding.ActivityLoginBinding
 
 
 class LoginActivity : AppCompatActivity() {

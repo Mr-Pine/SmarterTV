@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.kieferd.smartertv">
+    package="com.mrpine.smartertv">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -18,8 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Main2Activity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.mrpine.smartertv.Main2Activity"></activity>
+        <activity android:name="com.mrpine.smartertv.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.mrpine.smartertv.MainActivity"
             android:screenOrientation="sensorPortrait"></activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
